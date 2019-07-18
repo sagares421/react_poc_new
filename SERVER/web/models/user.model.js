@@ -7,21 +7,21 @@ const teams = [
         first_name: 'John',
         last_name: 'Doe',
         email: 'admin@test.com',
-        role: 'ADMIN',
+        role: 'Admin',
         password: bcrypt.hashPassword('test')
     },
     {
         first_name: 'John',
         last_name: 'Doe',
         email: 'advisor@test.com',
-        role: 'ADVISOR',
+        role: 'Advisor',
         password: bcrypt.hashPassword('test')
     },
     {
         first_name: 'John',
         last_name: 'Doe',
         email: 'user@test.com',
-        role: 'USER',
+        role: 'User',
         password: bcrypt.hashPassword('test')
     }
 ];
@@ -84,6 +84,7 @@ class User {
                 if (bcrypt.comparePassword(req.body.password, doc.password)) {
                     res.status(200).json(
                         {
+                            success: true,
                             id: doc._id,
                             username: `${doc.first_name} ${doc.last_name}`,
                             firstName: doc.first_name,

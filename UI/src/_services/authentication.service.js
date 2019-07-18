@@ -10,11 +10,11 @@ export const authenticationService = {
     currentUserValue
 };
 
-function login(username, password) {
+function login(data) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(data)
     };
 
     return fetch(`${config.apiUrl}/api/user/login`, requestOptions)
