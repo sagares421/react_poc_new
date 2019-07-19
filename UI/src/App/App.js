@@ -1,14 +1,20 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history, Role } from '../_helpers';
 import { authenticationService } from '../_services';
 import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
-import { HomePage } from './HomePage';
-import { AdminPage } from './AdminPage';
 import { LoginPage } from './LoginPage';
+
+// Components
+import { Admin } from './Admin/Main';
+import { AdminCommodities } from './Admin/Commodities/Index';
+import { AdminAdvisors } from './Admin/Advisors/Index';
+import { AdminTips } from './Admin/Tips/Index';
+import { Advisors } from './Advisor/Tips/Index';
+import { Users } from './User/GetTips/Index';
 
 class App extends React.Component {
     constructor(props) {
@@ -39,7 +45,7 @@ class App extends React.Component {
             isAdmin: false
         })
         authenticationService.logout();
-        history.push('/login');
+        history.push('/');
     }
 
     render() {
@@ -64,17 +70,23 @@ class App extends React.Component {
                                     <ul class="navbar-nav ml-auto">
                                         {isAdmin && <li class="nav-item"><Link to="/admin/commodities" className="nav-item nav-link">Commodities</Link></li>}
                                         {isAdmin && <li class="nav-item"><Link to="/admin/advisors" className="nav-item nav-link">Advisors</Link></li>}
-                                        {isAdmin && <li class="nav-item"><Link to="/admin/users" className="nav-item nav-link">Users</Link></li>}
+                                        {isAdmin && <li class="nav-item"><Link to="/admin/tips" className="nav-item nav-link">Tips</Link></li>}
                                         <li class="nav-item">
-                                            <Link onClick={this.logout.bind(this)} class="nav-link" href="#">Logout</Link>
+                                            <Link onClick={this.logout.bind(this)} className="nav-link btn" href="#">Logout</Link>
                                         </li>
                                     </ul>
                                 </div>
                             </nav>
                         }
-                        <PrivateRoute exact path="/" component={HomePage} />
-                        <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
-                        <Route path="/login" component={LoginPage} />
+                        <Switch>
+                            <PrivateRoute exact path="/admin" roles={[Role.Admin]} component={Admin} />
+                            <PrivateRoute exact path="/admin/commodities" roles={[Role.Admin]} component={AdminCommodities} />
+                            <PrivateRoute exact path="/admin/advisors" roles={[Role.Admin]} component={AdminAdvisors} />
+                            <PrivateRoute exact path="/admin/tips" roles={[Role.Admin]} component={AdminTips} />
+                            <PrivateRoute exact path="/advisor" roles={[Role.Advisor]} component={Advisors} />
+                            <PrivateRoute exact path="/user" roles={[Role.User]} component={Users} />
+                            <Route exact path="/" component={LoginPage} />
+                        </Switch>
                     </div>
                 </Router>
             </React.Fragment>

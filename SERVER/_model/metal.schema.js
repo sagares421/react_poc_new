@@ -30,7 +30,7 @@ var Schema_Metal = new mongoose.Schema({
     },
     updated_by: {
         type: ObjectId,
-        required: true,
+        required: false,
         ref: 'User'
     }
 });

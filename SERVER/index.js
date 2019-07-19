@@ -21,10 +21,8 @@ db.once('open', function callback() {
 app.use(helmet())
 app.use(cors());
 app.use(compression());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
 
 // Adding Web API routes
 routes(app);

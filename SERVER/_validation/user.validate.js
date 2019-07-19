@@ -37,5 +37,20 @@ module.exports = {
         body: {
             type: Joi.number().optional()
         }
+    },
+    createAdvisor:{
+        body: {
+            first_name: Joi.string().required(),
+            last_name: Joi.string().required(),
+            role: Joi.string().required().default('Advisor'),
+            email: Joi.string().email().required()
+        }
+    },
+    updateAdvisor:{
+        body: {
+            first_name: Joi.string().required(),
+            last_name: Joi.string().required(),
+            email: Joi.string().email().required()
+        }
     }
 }

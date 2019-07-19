@@ -37,9 +37,11 @@ class LoginPage extends React.Component {
                                             const { from } = this.props.location.state || { from: { pathname: "/admin" } };
                                             this.props.history.push(from);
                                         } else if(user.role === 'Advisor'){
-
+                                            const { from } = this.props.location.state || { from: { pathname: "/advisor" } };
+                                            this.props.history.push(from);
                                         } else if(user.role === 'User'){
-
+                                            const { from } = this.props.location.state || { from: { pathname: "/user" } };
+                                            this.props.history.push(from);
                                         }
                                     } else {
 

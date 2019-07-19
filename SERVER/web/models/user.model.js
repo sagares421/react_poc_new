@@ -69,6 +69,7 @@ class User {
  * @param {*} res 
  */
     loginUser(req, res) {
+        console.log(req.body);
         UserSchema.findOne({
             'email': req.body.email
         }, 'first_name last_name email role password', (err, doc) => {
@@ -80,7 +81,6 @@ class User {
                     message: 'The email address you entered is incorrect. Please try again.'
                 });
             } else {
-                console.log(doc.password);
                 if (bcrypt.comparePassword(req.body.password, doc.password)) {
                     res.status(200).json(
                         {
@@ -90,7 +90,7 @@ class User {
                             firstName: doc.first_name,
                             lastName: doc.last_name,
                             role: doc.role,
-                            token: `fake-jwt-token.${jwt.signWebToken({
+                            token: `${jwt.signWebToken({
                                 _id: doc._id,
                                 first_name: doc.first_name,
                                 last_name: doc.last_name,
@@ -109,19 +109,56 @@ class User {
     };
 
     /**
-     * @Todo: Add Location
+     * @Todo: List all Advisors
      * @param {*} req 
      * @param {*} res 
      */
-    regUser(req, res) {
-        let data = {
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            role: 'USER',
-            password: bcrypt.hashPassword(req.body.password)
-        }
-        new UserSchema(data).save((err, doc) => {
+    getAllAdvisors(req, res) {
+        UserSchema.find({role: 'Advisor'}).select('first_name last_name email role is_active').exec((err, doc) => {
+            if (err) {
+                res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
+            } else if (doc === null) {
+                res.status(200).json(RESPONSES.RECORDS_NOT_FOUND);
+            } else {
+                res.status(200).json({
+                    success: true,
+                    data: doc
+                });
+            }
+        });
+    };
+
+    /**
+     * @Todo: Get a Advisor
+     * @param {*} req 
+     * @param {*} res 
+     */
+    getOneAdvisor(req, res) {
+        UserSchema.findById({
+            _id: req.params.id,
+            role: 'Advisor'
+        }, 'first_name last_name email role is_active').exec((err, doc) => {
+            if (err) {
+                res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
+            } else if (doc === null) {
+                res.status(200).json(RESPONSES.RECORDS_NOT_FOUND);
+            } else {
+                res.status(200).json({
+                    success: true,
+                    data: doc
+                });
+            }
+        });
+    };
+
+    /**
+     * @Todo: Add Advisor
+     * @param {*} req 
+     * @param {*} res 
+     */
+    addAdvisor(req, res) {
+        req.body.password = bcrypt.hashPassword('test')
+        new UserSchema(req.body).save((err, doc) => {
             if (err) {
                 res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
             } else {
@@ -132,6 +169,58 @@ class User {
             }
         });
     };
+
+    /**
+     * @Todo: Update a Advisor
+     * @param {*} req 
+     * @param {*} res 
+     */
+    updateAdvisor(req, res) {
+        UserSchema.findByIdAndUpdate({
+            _id: req.params.id
+        }, {
+                $set: {
+                    'first_name': req.body.first_name,
+                    'last_name': req.body.last_name,
+                    'email': req.body.email,
+                    'updated_by': req.body.updated_by,
+                    'updated_at': new Date()
+                }
+            }).exec((err, doc) => {
+                if (err) {
+                    res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
+                } else {
+                    res.status(200).json({
+                        success: true,
+                        message: 'Updated Successfully!',
+                        id: doc.id
+                    });
+                }
+            });
+    }
+
+    /**
+     * @Todo: Delete a Advisor
+     * @param {*} req 
+     * @param {*} res 
+     */
+    deleteAdvisor(req, res) {
+        UserSchema.findByIdAndRemove({
+            _id: req.params.id
+        }).exec((err, doc) => {
+            if (err) {
+                res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
+            } else if (doc === null) {
+                res.status(200).json(RESPONSES.RECORDS_NOT_FOUND);
+            } else {
+                res.status(200).json({
+                    success: true,
+                    message: 'Deleted Successfully!',
+                    id: doc.id
+                });
+            }
+        });
+    }
 
 };
 

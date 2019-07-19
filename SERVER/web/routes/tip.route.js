@@ -10,12 +10,22 @@ const TipClass = require('../models/tip.model');
 const Tip = new TipClass();
 
 
-// router.use(auth.isMobValid);
+router.use(auth.isWebValid);
 
 /**
  * @TODO: Get all Tips
  */
-router.get('/', Tip.getAllTips);
+router.get('/all', Tip.getAllTips);
+
+/**
+ * @TODO: Get all Tips
+ */
+router.get('/approved', Tip.getApprovedTips);
+
+/**
+ * @TODO: Get all Tips
+ */
+router.get('/', Tip.getTips);
 
 
 /**

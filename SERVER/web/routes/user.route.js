@@ -16,20 +16,31 @@ const User = new UserProvider();
  */
 router.post('/login', User.loginUser);
 
-/**
- * @TODO: Add User
- */
-router.post('/reg', User.regUser);
-
+router.use(auth.isWebValid);
 
 /**
- * @TODO: Validate Web Token
+ * @TODO: Get all Advisors
  */
-// router.get('/token-check', auth.isMobValid, (req, res) => {
-//     res.status(200).json({
-//         success: true,
-//         message: 'Ok'
-//     })
-// });
+router.get('/advisor', User.getAllAdvisors);
+
+/**
+ * @TODO: Get one Advisors
+ */
+router.get('/advisor/:id', User.getOneAdvisor);
+
+/**
+ * @TODO: Add one Advisors
+ */
+router.post('/advisor', validate(UserValidator.createAdvisor), User.addAdvisor);
+
+/**
+ * @TODO: Update one Advisors
+ */
+router.put('/advisor/:id', validate(UserValidator.updateAdvisor), User.updateAdvisor);
+
+/**
+ * @TODO: Remove one Advisors
+ */
+router.delete('/advisor/:id', User.deleteAdvisor);
 
 module.exports = router;

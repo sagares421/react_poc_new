@@ -4,8 +4,8 @@ module.exports = {
 
     createMetal:{
         body: {
-            name: Joi.string().required(),
-            type: Joi.string().required()
+            name: Joi.string().optional(),
+            type: Joi.string().optional()
         }
     },
     updateMetal: {

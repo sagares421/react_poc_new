@@ -81,18 +81,20 @@ var Schema_User = new mongoose.Schema({
         default: Date.now
     },
     created_by: {
-        type: String,
+        type: ObjectId,
         required: true,
-        default: '1'
+        ref: 'User',
+        default: '5d317134b138a118290ef5e4'
     },
     updated_at: {
         type: Date,
         default: null
     },
     updated_by: {
-        type: String,
-        required: true,
-        default: '1'
+        type: ObjectId,
+        required: false,
+        ref: 'User',
+        default: '5d317134b138a118290ef5e4'
     }
 });
 module.exports = mongoose.model('User', Schema_User);

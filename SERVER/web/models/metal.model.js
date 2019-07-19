@@ -21,7 +21,7 @@ class Metal {
      * @param {*} res 
      */
     getAllMetals(req, res) {
-        MetalSchema.find({}).select('').exec((err, doc) => {
+        MetalSchema.find({}).select('name type is_active').exec((err, doc) => {
             if (err) {
                 res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
             } else if (doc === null) {
@@ -63,6 +63,7 @@ class Metal {
      * @param {*} res 
      */
     addMetal(req, res) {
+        console.log(req.body);
         new MetalSchema(req.body).save( (err, doc) => {
             if (err) {
                 res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
@@ -86,8 +87,7 @@ class Metal {
         }, {
             $set: {
                 'name': req.body.name,
-                'admin_name': req.body.admin_name,
-                'careteam_list': req.body.careteam_list,
+                'type': req.body.type,
                 'updated_by': req.body.updated_by,
                 'updated_at': new Date()
             }
@@ -111,7 +111,7 @@ class Metal {
      */
     deleteMetal(req, res) {
         MetalSchema.findByIdAndRemove({
-            _id: req.params.c_id
+            _id: req.params.id
         }).exec( (err, doc) => {
             if (err) {
                 res.status(400).json(RESPONSES.INTERNAL_ERROR(err));
