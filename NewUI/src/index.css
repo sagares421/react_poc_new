@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #E0DCD7;
+}
+
+.login{
+  display: block;
+  margin: auto;
+  margin-top: 200px;
+  padding: 50px;
+  width:30%;
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.login h2{
+  text-align: center;
+}
+
+.btn-login, .btn-full{
+  width: 100%
+}
+.navbar-brand, .navbar-brand:hover{
+  color: #F2F2F2 !important;
+}
+.bg-nav{
+  background-color: #6A6A77;
+}
+.nav-link{
+  color: #F2F2F2 !important;
+  cursor: pointer;
+}
+
+.body-section{
+  margin-top: 30px;
+}
+
+.card-title{
+  text-align: center;
+  font-weight: 600;
+}
+.card-header h4{
+  float: left;
+}
+.card-header i{
+  float: right;
+  font-size: 30px;
+  cursor: pointer;
+}
+.card-body{
+  padding: 0px;
+}
+
+.btn-submit{
+  float:right;
+}
+.del-sure{
+  padding:20px 0px;
+  text-align: center;
+}

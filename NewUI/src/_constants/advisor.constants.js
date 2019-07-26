@@ -1,0 +1,6 @@
+export const advisorConstants = {
+    GET_ADVISOR: 'GET_ADVISOR',
+    ADD_ADVISOR: 'ADD_ADVISOR',
+    UPDATE_ADVISOR: 'UPDATE_ADVISOR',
+    DELETE_ADVISOR: 'DELETE_ADVISOR'
+};

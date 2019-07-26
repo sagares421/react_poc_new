@@ -1,0 +1,8 @@
+export const tipConstants = {
+    GET_TIP: 'GET_TIP',
+    ADD_TIP: 'ADD_TIP',
+    UPDATE_TIP: 'UPDATE_TIP',
+    DELETE_TIP: 'DELETE_TIP',
+    ACTIVATE_TIP: 'ACTIVATE_TIP',
+    DE_ACTIVATE_TIP: 'DE_ACTIVATE_TIP'
+};

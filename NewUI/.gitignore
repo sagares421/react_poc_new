@@ -2,9 +2,6 @@
 
 # dependencies
 /node_modules
-/SERVER/node_modules
-/UI/node_modules
-/NewUI/node_modules
 /.pnp
 .pnp.js
 
