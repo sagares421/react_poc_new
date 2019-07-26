@@ -4,10 +4,11 @@ import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { userService } from '../../_services';
 
 class Admin extends React.Component {
-    
+
     render() {
         return (
             <React.Fragment>
+
                 <section className="body-section">
                     <div className="container">
                         <div className="row">

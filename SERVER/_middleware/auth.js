@@ -1,7 +1,6 @@
 const jwt = require('../_service/jwt');
 
 const isWebValid = (req, res, next) => {
-    console.log(req.body)
     let token = req.headers['authorization'] || req.params.token || req.query.token;
     if (token) {
         let decoded = jwt.verifyWebToken(token);
